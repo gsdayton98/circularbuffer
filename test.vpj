@@ -11,7 +11,7 @@
         Type="gnuc"
         DebugCallbackName="lldb"
         Version="1"
-        OutputFile="%bdcircularBuffer"
+        OutputFile="%bdtest"
         CompilerConfigName="Latest Version"
         Defines="">
         <Menu>
@@ -109,7 +109,9 @@
                 Name="LinkerOutputType"
                 Value="Executable"/>
         </List>
-        <Includes/>
+        <Includes>
+            <Include Dir=".."/>
+        </Includes>
         <Libs PreObjects="0"/>
     </Config>
     <Config
@@ -117,7 +119,7 @@
         Type="gnuc"
         DebugCallbackName="lldb"
         Version="1"
-        OutputFile="%bdcircularBuffer"
+        OutputFile="%bdtest"
         CompilerConfigName="Latest Version"
         Defines="">
         <Menu>
@@ -213,37 +215,38 @@
                 Name="LinkerOutputType"
                 Value="Executable"/>
         </List>
-        <Includes/>
+        <Includes>
+            <Include Dir=".."/>
+        </Includes>
         <Libs PreObjects="0"/>
     </Config>
     <CustomFolders>
         <Folder
-            Name="Source Files"
-            Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.scala;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
-            GUID="{E93C948C-3707-441A-924C-CAC0313AA956}"></Folder>
+            Name="Bitmaps"
+            Filters="*.bmp"
+            GUID="{682FD215-9AC5-4C77-A8AB-FF2C8E55F141}"/>
         <Folder
             Name="Header Files"
             Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
-            GUID="{17947196-E181-4F65-B02C-97871BD28800}"/>
-        <Folder
-            Name="Resource Files"
-            Filters="*.ico;*.cur;*.dlg"
-            GUID="{7ED71026-31EB-48F9-8C94-ECD6996152D7}"/>
-        <Folder
-            Name="Bitmaps"
-            Filters="*.bmp"
-            GUID="{4918F660-AB82-4D0C-8FDE-51CB8F65C010}"/>
+            GUID="{A9630CAC-58B6-4AA0-AF5D-27F100ED15A2}"/>
         <Folder
             Name="Other Files"
             Filters=""
-            GUID="{2DA6A53E-F6B8-4B68-B516-A9E827588E6E}"></Folder>
+            GUID="{2DCF2ABC-BF5C-45E1-8E8D-3B06DDB6007D}"></Folder>
+        <Folder
+            Name="Resource Files"
+            Filters="*.ico;*.cur;*.dlg"
+            GUID="{906C87FF-B168-4A6A-A384-BA6344D77FCA}"/>
+        <Folder
+            Name="Source Files"
+            Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.scala;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
+            GUID="{1F0B4F7D-1535-4AE1-85E2-2819FD210DB0}"/>
     </CustomFolders>
     <Files AutoFolders="DirectoryView">
         <F N="CircularBuffer.cpp"/>
-        <F N="CircularBuffer.h"/>
         <F
-            N="circularBuffer.mak"
+            N="test.mak"
             Type="Makefile"/>
-        <F N="main.cpp"/>
+        <F N="testCircularBuffer.cpp"/>
     </Files>
 </Project>

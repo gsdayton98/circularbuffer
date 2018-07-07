@@ -1,50 +1,37 @@
 #ifndef __CIRCULARBUFFER_H_INCL__
 #define __CIRCULARBUFFER_H_INCL__
+#include <cstdlib>
+#include <cstdint>
 
 /**
- * TODO: Add class description
+ * Circular Buffer, a double ended queue that uses a static array and reuses
+ * memory.
  *
  * @author gdayton
  */
 class CircularBuffer {
 public:
-  // Constructor
-  CircularBuffer(void);
+  /**
+   * Create an empty circular buffer at least 'nsize' big.
+   * Actual size of the buffer will be rounded up to a power of 2.
+   * @param nsize
+   */
+  explicit CircularBuffer(size_t nsize);
 
-  // Destructor
-  virtual ~CircularBuffer(void);
+  ~CircularBuffer(void);
 
-  // Copy constructor
-  // TODO: Uncomment the copy constructor when you need it.
-  //CircularBuffer(const CircularBuffer& src);
+  size_t capacity(void) const { return bufferCapacity; }
 
-  // Assignment operator
-  // TODO: Uncomment the assignment operator when you need it.
-  //CircularBuffer& operator=(const CircularBuffer& src);
+protected:
+  static size_t roundup(size_t n);
+
+
+private:
+  size_t bufferCapacity;
+  uintptr_t *buffer;
+
+  CircularBuffer(const CircularBuffer&) = delete;
+  CircularBuffer& operator=(const CircularBuffer&) = delete;
 };
-
-// Constructor implementation
-inline CircularBuffer::CircularBuffer(void) { }
-
-// Destructor implementation
-inline CircularBuffer::~CircularBuffer(void) { }
-
-// TODO: Uncomment the copy constructor when you need it.
-//inline CircularBuffer::CircularBuffer(const CircularBuffer& src)
-//{
-//   // TODO: copy
-//}
-
-// TODO: Uncomment the assignment operator when you need it.
-//inline CircularBuffer& CircularBuffer::operator=(const CircularBuffer& rhs)
-//{
-//   if (this == &rhs) {
-//      return *this;
-//   }
-//
-//   // TODO: assignment
-//
-//   return *this;
-//}
 
 #endif // __CIRCULARBUFFER_H_INCL__
