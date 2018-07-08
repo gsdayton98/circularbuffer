@@ -1,10 +1,12 @@
-#include "CircularBuffer.h"
+#include "CircularBuffer.hpp"
 
 // Create an empty circular buffer at least 'nsize' big.
 CircularBuffer::CircularBuffer(size_t nsize)
 : bufferCapacity{CircularBuffer::roundup(nsize)},
   buffer{new uintptr_t[bufferCapacity]},
-  bufferCapacityMinus1(bufferCapacity - 1UL)
+  bufferCapacityMinus1(bufferCapacity - 1UL),
+  head(0UL),
+  tail(0UL)
 {
 }
 

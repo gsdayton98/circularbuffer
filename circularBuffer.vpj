@@ -240,7 +240,7 @@
     </CustomFolders>
     <Files AutoFolders="DirectoryView">
         <F N="CircularBuffer.cpp"/>
-        <F N="CircularBuffer.h"/>
+        <F N="CircularBuffer.hpp"/>
         <F
             N="circularBuffer.mak"
             Type="Makefile"/>

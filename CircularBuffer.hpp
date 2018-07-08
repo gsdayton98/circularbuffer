@@ -30,8 +30,10 @@ protected:
 
 private:
   const size_t bufferCapacity;
-  uintptr_t *buffer;
+  const uintptr_t *buffer;
   const size_t bufferCapacityMinus1;
+  size_t head;
+  size_t tail;
 
   CircularBuffer(const CircularBuffer&) = delete;
   CircularBuffer& operator=(const CircularBuffer&) = delete;

@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <CppUnitXLite/CppUnitXLite.cpp>
 #include <utility>
-#include "CircularBuffer.h"
+#include "CircularBuffer.hpp"
 
 namespace {
  // Inherit from CircularBuffer so we can test the internal functions.
