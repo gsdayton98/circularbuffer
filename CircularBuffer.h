@@ -25,10 +25,13 @@ public:
 protected:
   static size_t roundup(size_t n);
 
+  size_t next(size_t i) const;
+
 
 private:
-  size_t bufferCapacity;
+  const size_t bufferCapacity;
   uintptr_t *buffer;
+  const size_t bufferCapacityMinus1;
 
   CircularBuffer(const CircularBuffer&) = delete;
   CircularBuffer& operator=(const CircularBuffer&) = delete;

@@ -6,8 +6,12 @@
 namespace {
  // Inherit from CircularBuffer so we can test the internal functions.
  struct TesterCircularBuffer : public CircularBuffer {
-   static size_t roundup(size_t n) { return CircularBuffer::roundup(n); }
- };
+  static size_t roundup(size_t n) { return CircularBuffer::roundup(n); }
+
+  explicit TesterCircularBuffer(size_t n) : CircularBuffer{n} { }
+
+  size_t next(size_t i) { return CircularBuffer::next(i); }
+};
 
 
  struct TestCase {
@@ -43,6 +47,15 @@ TEST(TestCircularBuffer, construction) {
   CircularBuffer cbuf{7};
 
   CHECK_EQUAL(8UL, cbuf.capacity());
+}
+
+TEST(TestCircularBuffer, next) {
+  TesterCircularBuffer cbuf{8};
+
+  for (size_t i = 0; i < 2 * cbuf.capacity(); ++i) {
+    size_t j = cbuf.next(i);
+    CHECK_EQUAL((i + 1UL) % cbuf.capacity(), j);
+  }
 }
 
 TESTMAIN
