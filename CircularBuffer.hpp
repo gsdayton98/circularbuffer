@@ -1,5 +1,5 @@
-#ifndef __CIRCULARBUFFER_H_INCL__
-#define __CIRCULARBUFFER_H_INCL__
+#ifndef CIRCULARBUFFER_HPP_INCL
+#define CIRCULARBUFFER_HPP_INCL
 #include <cstdlib>
 #include <cstdint>
 
@@ -11,16 +11,35 @@
  */
 class CircularBuffer {
 public:
-  /**
-   * Create an empty circular buffer at least 'nsize' big.
-   * Actual size of the buffer will be rounded up to a power of 2.
-   * @param nsize
-   */
+  /// <summary>Create an empty circular buffer at least 'nsize' big.
+  ///   Actual size of the buffer will be rounded up to a power of 2.</summary>
+  ///
+  /// <param name="nsize">Minimum size of the buffer</param>
   explicit CircularBuffer(size_t nsize);
 
+   /// Deallocate the buffer
   ~CircularBuffer(void);
 
+  /// <summary>Return the capacity of the buffer</summary>
+  ///
+  /// <returns>size_t  Capacity of the buffer</returns>
   size_t capacity(void) const { return bufferCapacity; }
+
+  /// <summary>Predicate for testing whether buffer is empty</summary>
+  /// </returns> true if buffer is empty
+  bool empty(void) const;
+
+  /// <summary>Predicate for testing whether buffer is full</summary>
+  /// </returns> true if buffer is full
+  bool full(void) const;
+
+  /// <summary>returns number of elements in the buffer
+  /// </returns>number of elements in the buffer
+  size_t size(void) const;
+
+  bool tryput(uintptr_t);
+
+  bool tryget(uintptr_t &);
 
 protected:
   static size_t roundup(size_t n);
@@ -30,7 +49,7 @@ protected:
 
 private:
   const size_t bufferCapacity;
-  const uintptr_t *buffer;
+  uintptr_t * const buffer;
   const size_t bufferCapacityMinus1;
   size_t head;
   size_t tail;
@@ -39,4 +58,4 @@ private:
   CircularBuffer& operator=(const CircularBuffer&) = delete;
 };
 
-#endif // __CIRCULARBUFFER_H_INCL__
+#endif // CIRCULARBUFFER_HPP_INCL

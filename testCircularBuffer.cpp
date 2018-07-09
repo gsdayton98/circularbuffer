@@ -58,4 +58,63 @@ TEST(TestCircularBuffer, next) {
   }
 }
 
+TEST(TestCircularBuffer, zero) {
+  CircularBuffer cbuf{0};
+
+  CHECK(cbuf.empty());
+  CHECK(cbuf.full());
+}
+
+TEST(TestCircularBuffer, size) {
+  CircularBuffer cbuf{8};
+
+  for (uintptr_t x = 1UL; x <= 5UL;  ++x) {
+    CHECK(cbuf.tryput(x));
+  }
+  CHECK_EQUAL(5UL, cbuf.size());
+}
+
+TEST(TestCircularBuffer, readwrite1) {
+  CircularBuffer cbuf{8};
+
+  for (uintptr_t x = 1UL; x <= 5UL;  ++x) {
+    CHECK(cbuf.tryput(x));
+  }
+
+
+  uintptr_t justread;
+  for (uintptr_t x = 1UL; x <= 5UL;  ++x) {
+    CHECK(cbuf.tryget(justread));
+    CHECK_EQUAL(x, justread);
+  }
+}
+
+TEST(TestCircularBuffer, readwritex) {
+  CircularBuffer cbuf{8};
+
+  uintptr_t expectedread = 1UL;
+  uintptr_t justread;
+  for (uintptr_t x = 1UL; x <= 25UL;  ++x) {
+    while (! cbuf.tryput(x)) {
+      CHECK(cbuf.tryget(justread));
+      CHECK_EQUAL(expectedread, justread);
+      ++expectedread;
+
+      CHECK(cbuf.tryget(justread));
+      CHECK_EQUAL(expectedread, justread);
+      ++expectedread;
+      CHECK(cbuf.tryget(justread));
+      CHECK_EQUAL(expectedread, justread);
+      ++expectedread;
+    }
+  }
+
+  while (cbuf.tryget(justread)) {
+    CHECK_EQUAL(expectedread, justread);
+    ++expectedread;
+  }
+  CHECK(cbuf.empty());
+}
+
+
 TESTMAIN
