@@ -1,0 +1,14 @@
+Welcome to CircularBuffer
+
+CircularBuffer is a static sized double ended queue that wraps around.  Read
+from the tail pointer. Write to the head pointer.  When either pointer reaches
+the end of the buffer, it wraps around to the beginning.  The buffer is full
+when the head wraps around to the tail, and empty when the tail is the same as
+the head.
+
+CircularBuffers are handy for communicating between threads.
+
+This version is merely an example using modern C++11 and C++17 features.
+
+The unit testing makes use of the CppUnitXLite framework.
+

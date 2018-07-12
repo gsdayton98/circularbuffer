@@ -244,6 +244,8 @@
         <F
             N="circularBuffer.mak"
             Type="Makefile"/>
+        <F N="LICENSE"/>
         <F N="main.cpp"/>
+        <F N="README"/>
     </Files>
 </Project>
