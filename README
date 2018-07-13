@@ -10,5 +10,6 @@ CircularBuffers are handy for communicating between threads.
 
 This version is merely an example using modern C++11 and C++17 features.
 
-The unit testing makes use of the CppUnitXLite framework.
+The unit testing makes use of the CppUnitXLite framework (https://github.com/gsdayton98/CppUnitXLite.git)
+
 
