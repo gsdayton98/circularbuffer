@@ -239,13 +239,11 @@
             GUID="{2DA6A53E-F6B8-4B68-B516-A9E827588E6E}"></Folder>
     </CustomFolders>
     <Files AutoFolders="DirectoryView">
-        <F N="CircularBuffer.cpp"/>
         <F N="CircularBuffer.hpp"/>
         <F
             N="circularBuffer.mak"
             Type="Makefile"/>
         <F N="LICENSE"/>
-        <F N="main.cpp"/>
         <F N="README"/>
     </Files>
 </Project>
