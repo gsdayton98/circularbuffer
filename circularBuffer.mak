@@ -23,16 +23,12 @@ OUTFILE=$(OUTDIR)/circularBuffer
 CFG_INC=
 CFG_LIB=
 CFG_OBJ=
-COMMON_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/main.o 
+COMMON_OBJ=
 OBJ=$(COMMON_OBJ) $(CFG_OBJ)
-ALL_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/main.o 
+ALL_OBJ=
 
 COMPILE=clang++ -c   -g -Werror -std=c++17 -o "$(OUTDIR)/$(*F).o" $(CFG_INC) $<
 LINK=clang++  -g -Werror -o "$(OUTFILE)" $(ALL_OBJ)
-
-# Pattern rules
-$(OUTDIR)/%.o : %.cpp
-	$(COMPILE)
 
 # Build rules
 all: $(OUTFILE)
@@ -64,16 +60,12 @@ OUTFILE=$(OUTDIR)/circularBuffer
 CFG_INC=
 CFG_LIB=
 CFG_OBJ=
-COMMON_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/main.o 
+COMMON_OBJ=
 OBJ=$(COMMON_OBJ) $(CFG_OBJ)
-ALL_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/main.o 
+ALL_OBJ=
 
 COMPILE=clang++ -c   -Werror -o "$(OUTDIR)/$(*F).o" $(CFG_INC) $<
 LINK=clang++  -Werror -o "$(OUTFILE)" $(ALL_OBJ)
-
-# Pattern rules
-$(OUTDIR)/%.o : %.cpp
-	$(COMPILE)
 
 # Build rules
 all: $(OUTFILE)

@@ -5,14 +5,19 @@
 #include <utility>
 #include "CircularBuffer.hpp"
 
+
+template class CircularBuffer<uintptr_t>;
+
+
 namespace {
  // Inherit from CircularBuffer so we can test the internal functions.
- struct TesterCircularBuffer : public CircularBuffer {
-  static size_t roundup(size_t n) { return CircularBuffer::roundup(n); }
+ struct TesterCircularBuffer : public CircularBuffer<uintptr_t> {
+  static size_t roundup(size_t n) { return CircularBuffer<uintptr_t>::roundup(n); }
 
-  explicit TesterCircularBuffer(size_t n) : CircularBuffer{n} { }
+  explicit TesterCircularBuffer(size_t n) : CircularBuffer<uintptr_t>{n}
+  { }
 
-  size_t next(size_t i) { return CircularBuffer::next(i); }
+  size_t next(size_t i) { return CircularBuffer<uintptr_t>::next(i); }
 };
 
 
@@ -46,7 +51,7 @@ TEST(TestCircularBuffer, Roundup)
 }
 
 TEST(TestCircularBuffer, Construction) {
-  CircularBuffer cbuf{7};
+  CircularBuffer<uintptr_t> cbuf{7};
 
   CHECK_EQUAL(8UL, cbuf.capacity());
 }
@@ -61,14 +66,14 @@ TEST(TestCircularBuffer, Next) {
 }
 
 TEST(TestCircularBuffer, Zero) {
-  CircularBuffer cbuf{0};
+  CircularBuffer<uintptr_t> cbuf{0};
 
   CHECK(cbuf.empty());
   CHECK(cbuf.full());
 }
 
 TEST(TestCircularBuffer, Size) {
-  CircularBuffer cbuf{8};
+  CircularBuffer<uintptr_t> cbuf{8};
 
   for (uintptr_t x = 1UL; x <= 5UL;  ++x) {
     CHECK(cbuf.tryput(x));
@@ -77,7 +82,7 @@ TEST(TestCircularBuffer, Size) {
 }
 
 TEST(TestCircularBuffer, ReadWrite1) {
-  CircularBuffer cbuf{8};
+  CircularBuffer<uintptr_t> cbuf{8};
 
   for (uintptr_t x = 1UL; x <= 5UL;  ++x) {
     CHECK(cbuf.tryput(x));
@@ -92,7 +97,7 @@ TEST(TestCircularBuffer, ReadWrite1) {
 }
 
 TEST(TestCircularBuffer, ReadWriteX) {
-  CircularBuffer cbuf{8};
+  CircularBuffer<uintptr_t> cbuf{8};
 
   uintptr_t expectedread = 1UL;
   uintptr_t justread;
@@ -120,7 +125,7 @@ TEST(TestCircularBuffer, ReadWriteX) {
 
 
 TEST(TestCircularBuffer, Singlethread) {
-  CircularBuffer cbuf{8};
+  CircularBuffer<uintptr_t> cbuf{8};
 
   uintptr_t expectedread = 1UL;
   uintptr_t justread;
@@ -155,7 +160,8 @@ using std::chrono::milliseconds;
 
 
 struct TestCircularBufferMultiThreadTest : public Test {
-  CircularBuffer cbuf;
+  CircularBuffer<uintptr_t> cbuf;
+  static const uintptr_t ITERATIONS = 50UL;
 
   TestCircularBufferMultiThreadTest(void)
      : Test("CppUnitXLiteTest::TestCircularBufferMultiThreadTest"),
@@ -167,9 +173,10 @@ struct TestCircularBufferMultiThreadTest : public Test {
   void testThread(TestResult& result) {
     static const duration PERIOD = milliseconds(30);
 
-    for (uintptr_t expected = 1UL; expected <= 100UL; ++expected) {
+    for (uintptr_t expected = 1UL; expected <= ITERATIONS; ++expected) {
       std::this_thread::sleep_for(PERIOD);
       uintptr_t actual = cbuf.get();
+
       checkEqual(expected, actual, result, __FILE__, __LINE__);
     }
   }
@@ -177,7 +184,7 @@ struct TestCircularBufferMultiThreadTest : public Test {
   void otherThread(void) {
     static const duration PERIOD = milliseconds(55);
 
-    for (uintptr_t actual = 1UL; actual <= 100UL; ++actual) {
+    for (uintptr_t actual = 1UL; actual <= ITERATIONS; ++actual) {
       cbuf.put(actual);
       std::this_thread::sleep_for(PERIOD);
     }

@@ -23,9 +23,9 @@ OUTFILE=$(OUTDIR)/test
 CFG_INC=-I.. 
 CFG_LIB=
 CFG_OBJ=
-COMMON_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/testCircularBuffer.o 
+COMMON_OBJ=$(OUTDIR)/testCircularBuffer.o 
 OBJ=$(COMMON_OBJ) $(CFG_OBJ)
-ALL_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/testCircularBuffer.o 
+ALL_OBJ=$(OUTDIR)/testCircularBuffer.o 
 
 COMPILE=clang++ -c   -g -Werror -std=c++17 -o "$(OUTDIR)/$(*F).o" $(CFG_INC) $<
 LINK=clang++  -g -Werror -o "$(OUTFILE)" $(ALL_OBJ)
@@ -64,9 +64,9 @@ OUTFILE=$(OUTDIR)/test
 CFG_INC=-I.. 
 CFG_LIB=
 CFG_OBJ=
-COMMON_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/testCircularBuffer.o 
+COMMON_OBJ=$(OUTDIR)/testCircularBuffer.o 
 OBJ=$(COMMON_OBJ) $(CFG_OBJ)
-ALL_OBJ=$(OUTDIR)/CircularBuffer.o $(OUTDIR)/testCircularBuffer.o 
+ALL_OBJ=$(OUTDIR)/testCircularBuffer.o 
 
 COMPILE=clang++ -c   -Werror -o "$(OUTDIR)/$(*F).o" $(CFG_INC) $<
 LINK=clang++  -Werror -o "$(OUTFILE)" $(ALL_OBJ)

@@ -243,7 +243,6 @@
             GUID="{1F0B4F7D-1535-4AE1-85E2-2819FD210DB0}"/>
     </CustomFolders>
     <Files AutoFolders="DirectoryView">
-        <F N="CircularBuffer.cpp"/>
         <F
             N="test.mak"
             Type="Makefile"/>
