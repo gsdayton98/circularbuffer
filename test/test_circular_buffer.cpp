@@ -1,9 +1,11 @@
 #include <chrono>
 #include "CppUnitXLite/CppUnitXLite.cpp"
 #include <thread>
-#include "../circularbuffer.hpp"
+#include "../circular_buffer.hpp"
 
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "HidingNonVirtualFunction"
 template
 class CircularBuffer<uintptr_t>;
 
@@ -15,7 +17,7 @@ namespace {
 
         explicit TesterCircularBuffer(size_t n) : CircularBuffer<uintptr_t>{n} {}
 
-        size_t next(size_t i) { return CircularBuffer<uintptr_t>::next(i); }
+        auto next(size_t i) -> size_t  { return CircularBuffer<uintptr_t>::next(i); }
     };
 
 
@@ -73,7 +75,7 @@ TEST(TestCircularBuffer, Size) {
     CircularBuffer<uintptr_t> cbuf{8};
 
     for (uintptr_t x = 1UL; x <= 5UL; ++x) {
-        CHECK(cbuf.tryput(x));
+        CHECK(cbuf.tryPut(x));
     }
     CHECK_EQUAL(5UL, cbuf.size());
 }
@@ -82,13 +84,13 @@ TEST(TestCircularBuffer, ReadWrite1) {
     CircularBuffer<uintptr_t> cbuf{8};
 
     for (uintptr_t x = 1UL; x <= 5UL; ++x) {
-        CHECK(cbuf.tryput(x));
+        CHECK(cbuf.tryPut(x));
     }
 
 
     uintptr_t justread;
     for (uintptr_t x = 1UL; x <= 5UL; ++x) {
-        CHECK(cbuf.tryget(justread));
+        CHECK(cbuf.tryGet(justread));
         CHECK_EQUAL(x, justread);
     }
 }
@@ -99,21 +101,21 @@ TEST(TestCircularBuffer, ReadWriteX) {
     uintptr_t expectedread = 1UL;
     uintptr_t justread;
     for (uintptr_t x = 1UL; x <= 25UL; ++x) {
-        while (!cbuf.tryput(x)) {
-            CHECK(cbuf.tryget(justread));
+        while (!cbuf.tryPut(x)) {
+            CHECK(cbuf.tryGet(justread));
             CHECK_EQUAL(expectedread, justread);
             ++expectedread;
 
-            CHECK(cbuf.tryget(justread));
+            CHECK(cbuf.tryGet(justread));
             CHECK_EQUAL(expectedread, justread);
             ++expectedread;
-            CHECK(cbuf.tryget(justread));
+            CHECK(cbuf.tryGet(justread));
             CHECK_EQUAL(expectedread, justread);
             ++expectedread;
         }
     }
 
-    while (cbuf.tryget(justread)) {
+    while (cbuf.tryGet(justread)) {
         CHECK_EQUAL(expectedread, justread);
         ++expectedread;
     }
@@ -197,3 +199,5 @@ struct TestCircularBufferMultiThreadTest : public Test {
 
 
 TESTMAIN
+
+#pragma clang diagnostic pop
